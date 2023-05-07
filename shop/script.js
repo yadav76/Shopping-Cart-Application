@@ -19,6 +19,11 @@ var itemsCon = document.querySelector(".items");
 var range = document.getElementById("range");
 
 var itemsArr = [];
+var cartArr = [];
+
+if (localStorage.getItem("Cart")) {
+  cartArr = JSON.stringify(localStorage.getItem("Cart"));
+}else cartArr = [];
 
 // fetch Items from API
 fetch("https://fakestoreapi.com/products")
@@ -50,6 +55,19 @@ function showContent(arr){
   </div>
     `
   })
+}
+
+// addToCart function for all filteredProducts
+function addToCart(id){
+  var currItem;
+  itemsArr.forEach((element)=>{
+    if(element.id==id){
+      currItem = element;
+    }
+  })
+  cartArr.push(currItem);
+  localStorage.setItem('Cart',JSON.stringify(cartArr));
+  console.log(JSON.parse(localStorage.getItem('Cart')));
 }
 
 search.addEventListener('input',()=>{
