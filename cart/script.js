@@ -5,14 +5,14 @@ if(!localStorage.getItem('currUser')){
 const itemContainer = document.querySelector('.items');
 const listContainer = document.querySelector('.list-container');
 const totalPrice = document.getElementById('total-price');
-var cartItem=[];
+var allCartItems = [];
 
 if(localStorage.getItem('Cart')){
-    let myArr =JSON.parse(localStorage.getItem('Cart'));
+    let cartArr =JSON.parse(localStorage.getItem('Cart'));
 
-    cartItem=myArr;
+    allCartItems = cartArr;
 
-    showCartItem(cartItem);
+    showItmes(allCartItems);
     
 }
 else{
@@ -21,21 +21,21 @@ else{
 
 
 
-function showCartItem(Arr){
+function showItmes(arr){
     itemContainer.innerHTML='';
     listContainer.innerHTML='';
 
-    if(cartItem.length==0){
+    if(allCartItems.length==0){
         itemContainer.innerHTML=`
-        <h3 style='text-align: center;;'>No products found in Cart</h3>
+        <h3 style='text-align: center;;'>Cart Is Empty</h3>
         `;
-        console.log(totalPrice);
+
         totalPrice.innerHTML='0';
     }
 
 
 
-    Arr.forEach((ele,index)=>{
+    arr.forEach((ele,index)=>{
         itemContainer.innerHTML+=`
         <div class="item">
         <img src="${ele.image}" alt="Item" />
@@ -69,60 +69,54 @@ function removeFromCart(id){
     console.log("remove");
     let itemToRemove;
     let indexToRemove;
-    cartItem.forEach((item,index)=>{
+    allCartItems.forEach((item,index)=>{
         if(item.id==id){
             itemToRemove=item;
             indexToRemove=index;
         }
     })
     console.log(itemToRemove);
-    cartItem.splice(indexToRemove,1);
+    allCartItems.splice(indexToRemove,1);
 
-    localStorage.setItem('Cart',JSON.stringify(cartItem));
-    showCartItem(cartItem);
+    localStorage.setItem('Cart',JSON.stringify(allCartItems));
+    showItmes(allCartItems);
 }
 
-if(cartItem.length==0){
+if(allCartItems.length==0){
     itemContainer.innerHTML=`
     <h3 style='text-align: center;;'>No products found in the Cart</h3>
     `;
 }
 
 function totalPriceFunc(){
-    return cartItem.reduce((acc,item)=>{
+    return allCartItems.reduce((acc,item)=>{
         return acc+item.price;
     },0)
 }
 
-// Link for the documentation:
-// https://razorpay.com/docs/payments/payment-gateway/web-integration/standard/build-integration
-
-// Add button code documentation:
-// https://razorpay.com/docs/payments/payment-gateway/web-integration/standard/build-integration#code-to-add-pay-button
-
 document.getElementById("rzp-button1").onclick = function (e) {
     var options = {
-      key: "rzp_test_PV1oQ0oMtgXOsq", // Enter the Key ID generated from the Dashboard
-      amount: totalPriceFunc() * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-      currency: "INR",
-      name: "MyShop Checkout",
-      description: "This is your order", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-      theme: {
-        color: "#000",
-      },
-      image:
-        "https://www.mintformations.co.uk/blog/wp-content/uploads/2020/05/shutterstock_583717939.jpg",
-    };
+        key: "rzp_test_PV1oQ0oMtgXOsq", // Enter the Key ID generated from the Dashboard
+        amount: totalPriceFunc() * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        currency: "INR",
+        name: "MyShop Checkout",
+        description: "This is your order", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        theme: {
+          color: "#000",
+        },
+        image:
+          "https://www.mintformations.co.uk/blog/wp-content/uploads/2020/05/shutterstock_583717939.jpg",
+      };
   
     var rzpy1 = new Razorpay(options);
     rzpy1.open();
-    // clear mycart - localStorage
-    localStorage.removeItem('cartArr');
 
-    cartItem=[];
+    localStorage.removeItem('Cart');
 
-    showCartItem(cartItem);
+    allCartItems = [];
 
+    showItmes(allCartItems);
+    console.log("finished");
   };
   
 
