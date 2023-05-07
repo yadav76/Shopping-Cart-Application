@@ -22,7 +22,7 @@ var itemsArr = [];
 var cartArr = [];
 
 if (localStorage.getItem("Cart")) {
-  cartArr = JSON.stringify(localStorage.getItem("Cart"));
+  cartArr = JSON.parse(localStorage.getItem("Cart"));
 }else cartArr = [];
 
 // fetch Items from API
