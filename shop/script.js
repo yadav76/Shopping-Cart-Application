@@ -181,7 +181,7 @@ electronics.addEventListener('click',()=>{
 // range filter
 range.addEventListener('click', ()=> {
   console.log(range.value);
-  
+
   // If range is 0 then show all itmes
   if(range.value==0){
     showContent(itemsArr);
@@ -203,3 +203,42 @@ range.addEventListener('click', ()=> {
 
   showContent(rangeArr);
 })
+
+// checkBox filter
+function checkBoxFilter() {
+  const checkboxes = Array.from(document.querySelectorAll('input[name="prange"]'));
+  const checkedRanges = checkboxes.filter(c => c.checked).map(c => c.value);
+
+  if (checkedRanges.length === 0) {
+    showContent(itemsArr);
+    return;
+  }
+
+
+  const filteredProducts = itemsArr.filter(p => {
+    const price = p.price;
+    for (const range of checkedRanges) {
+      if (range === '100+' && price >= 100) {
+        return true;
+      }
+      const [min, max] = range.split('-').map(parseFloat);
+      if (price >= min && price <= max) {
+        return true;
+      }
+    }
+    return false;
+  });
+
+
+  arr = itemsArr.filter(element =>{
+    if(filteredProducts.includes(element)){
+      return element;
+    }
+  })
+  showContent(arr);
+}
+
+// If any CheckBox is checked then filter the itmes 
+document.querySelectorAll('input[type="checkbox"]').forEach(c => {
+  c.addEventListener('change', checkBoxFilter);
+});
