@@ -1,42 +1,42 @@
 
-if(!localStorage.getItem('currUser')){
-    location.href='../login/index.html';
+if (!localStorage.getItem('currUser')) {
+    location.href = '../login/index.html';
 }
 const itemContainer = document.querySelector('.items');
 const listContainer = document.querySelector('.list-container');
 const totalPrice = document.getElementById('total-price');
 var allCartItems = [];
 
-if(localStorage.getItem('Cart')){
-    let cartArr =JSON.parse(localStorage.getItem('Cart'));
+if (localStorage.getItem('Cart')) {
+    let cartArr = JSON.parse(localStorage.getItem('Cart'));
 
     allCartItems = cartArr;
 
     showItmes(allCartItems);
-    
+
 }
-else{
-    totalPrice.innerHTML='0';
+else {
+    totalPrice.innerHTML = '0';
 }
 
 
 
-function showItmes(arr){
-    itemContainer.innerHTML='';
-    listContainer.innerHTML='';
+function showItmes(arr) {
+    itemContainer.innerHTML = '';
+    listContainer.innerHTML = '';
 
-    if(allCartItems.length==0){
-        itemContainer.innerHTML=`
+    if (allCartItems.length == 0) {
+        itemContainer.innerHTML = `
         <h3 style='text-align: center;;'>Cart Is Empty</h3>
         `;
 
-        totalPrice.innerHTML='0';
+        totalPrice.innerHTML = '0';
     }
 
 
 
-    arr.forEach((ele,index)=>{
-        itemContainer.innerHTML+=`
+    arr.forEach((ele, index) => {
+        itemContainer.innerHTML += `
         <div class="item">
         <img src="${ele.image}" alt="Item" />
         <div class="info">
@@ -50,9 +50,9 @@ function showItmes(arr){
       </div>
         `;
 
-        listContainer.innerHTML+=`
+        listContainer.innerHTML += `
         <div style="display: flex; justify-content: space-between; margin-bottom: 20px; gap:20px">
-         <div><strong>${index+1}.<strong>  ${ele.title}</div>
+         <div><strong>${index + 1}.<strong>  ${ele.title}</div>
          <div>$${ele.price}</div>
         </div>
         `
@@ -60,38 +60,38 @@ function showItmes(arr){
 
     })
 
-    totalPrice.innerHTML=totalPriceFunc();
+    totalPrice.innerHTML = totalPriceFunc();
 
 
 }
 
-function removeFromCart(id){
+function removeFromCart(id) {
     console.log("remove");
     let itemToRemove;
     let indexToRemove;
-    allCartItems.forEach((item,index)=>{
-        if(item.id==id){
-            itemToRemove=item;
-            indexToRemove=index;
+    allCartItems.forEach((item, index) => {
+        if (item.id == id) {
+            itemToRemove = item;
+            indexToRemove = index;
         }
     })
     console.log(itemToRemove);
-    allCartItems.splice(indexToRemove,1);
+    allCartItems.splice(indexToRemove, 1);
 
-    localStorage.setItem('Cart',JSON.stringify(allCartItems));
+    localStorage.setItem('Cart', JSON.stringify(allCartItems));
     showItmes(allCartItems);
 }
 
-if(allCartItems.length==0){
-    itemContainer.innerHTML=`
+if (allCartItems.length == 0) {
+    itemContainer.innerHTML = `
     <h3 style='text-align: center;;'>No products found in the Cart</h3>
     `;
 }
 
-function totalPriceFunc(){
-    return allCartItems.reduce((acc,item)=>{
-        return acc+item.price;
-    },0)
+function totalPriceFunc() {
+    return allCartItems.reduce((acc, item) => {
+        return acc + item.price;
+    }, 0)
 }
 
 document.getElementById("rzp-button1").onclick = function (e) {
@@ -102,12 +102,12 @@ document.getElementById("rzp-button1").onclick = function (e) {
         name: "MyShop Checkout",
         description: "This is your order", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         theme: {
-          color: "#000",
+            color: "#000",
         },
         image:
-          "https://www.mintformations.co.uk/blog/wp-content/uploads/2020/05/shutterstock_583717939.jpg",
-      };
-  
+            "https://www.mintformations.co.uk/blog/wp-content/uploads/2020/05/shutterstock_583717939.jpg",
+    };
+
     var rzpy1 = new Razorpay(options);
     rzpy1.open();
 
@@ -117,8 +117,9 @@ document.getElementById("rzp-button1").onclick = function (e) {
 
     showItmes(allCartItems);
     console.log("finished");
-  };
-  
+};
+
+// git dummy commit
 
 
 
