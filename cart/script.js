@@ -1,3 +1,12 @@
+// If currUser exists in localStorage then do not go to login or signup page
+var login = document.getElementById("login");
+var signup = document.getElementById("signup");
+
+if (localStorage.getItem("currUser")) {
+    login.href = "javascript: void(0)";
+    signup.href = "javascript: void(0)";
+}
+
 
 if (!localStorage.getItem('currUser')) {
     location.href = '../login/index.html';

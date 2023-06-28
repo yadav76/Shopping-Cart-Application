@@ -9,6 +9,14 @@ const produtc = {
   rating: { rate: 3.9, count: 120 },
 };
 
+var signup = document.getElementById("signup");
+var login = document.getElementById("login");
+
+if (localStorage.getItem("currUser")) {
+  signup.href = "javascript: void(0)";
+  login.href = "javascript: void(0)";
+}
+
 var search = document.getElementById("search");
 var all = document.getElementById("all");
 var mens = document.getElementById("mens");
@@ -23,21 +31,21 @@ var cartArr = [];
 
 if (localStorage.getItem("Cart")) {
   cartArr = JSON.parse(localStorage.getItem("Cart"));
-}else cartArr = [];
+} else cartArr = [];
 
 // fetch Items from API
 fetch("https://fakestoreapi.com/products")
-.then((res) => res.json())
-.then((data) => {
-  itemsArr = data;
+  .then((res) => res.json())
+  .then((data) => {
+    itemsArr = data;
 
-  localStorage.setItem("allItmes",JSON.stringify(itemsArr));
+    localStorage.setItem("allItmes", JSON.stringify(itemsArr));
 
-  showContent(itemsArr);
-  console.log(itemsArr[0]);
-})
+    showContent(itemsArr);
+    console.log(itemsArr[0]);
+  })
 
-function showContent(arr){
+function showContent(arr) {
   itemsCon.innerHTML = "";
 
   arr.forEach((element) => {
@@ -58,29 +66,29 @@ function showContent(arr){
 }
 
 // addToCart function for all filteredProducts
-function addToCart(id){
+function addToCart(id) {
   var currItem;
-  itemsArr.forEach((element)=>{
-    if(element.id==id){
+  itemsArr.forEach((element) => {
+    if (element.id == id) {
       currItem = element;
     }
   })
   cartArr.push(currItem);
-  localStorage.setItem('Cart',JSON.stringify(cartArr));
+  localStorage.setItem('Cart', JSON.stringify(cartArr));
   console.log(JSON.parse(localStorage.getItem('Cart')));
 }
 
-search.addEventListener('input',()=>{
-  filterArr = itemsArr.filter(element=>{
-    if(element.title.toLowerCase().includes(search.value.trim().toLowerCase())){
+search.addEventListener('input', () => {
+  filterArr = itemsArr.filter(element => {
+    if (element.title.toLowerCase().includes(search.value.trim().toLowerCase())) {
       return element;
     }
   })
 
   // console.log(filterArr);
 
-  if(filterArr.length==0){
-    itemsCon.innerHTML=`
+  if (filterArr.length == 0) {
+    itemsCon.innerHTML = `
     <h4 style='color:red; font-size: 20px;'>No Items Found! Please Modify Your Search</h4>
     `
     return;
@@ -89,41 +97,41 @@ search.addEventListener('input',()=>{
 })
 
 // Show all Content
-all.addEventListener('click',()=>{
-  arr =JSON.parse(localStorage.getItem('allItmes'));
+all.addEventListener('click', () => {
+  arr = JSON.parse(localStorage.getItem('allItmes'));
 
-  all.style.backgroundColor='black';
-  all.style.color='white';
-  mens.style.color='black';
-  mens.style.backgroundColor='white';
-  womens.style.color='black';
-  womens.style.backgroundColor='white';
-  jewellery.style.color='black';
-  jewellery.style.backgroundColor='white';
-  electronics.style.color='black';
-  electronics.style.backgroundColor='white';
+  all.style.backgroundColor = 'black';
+  all.style.color = 'white';
+  mens.style.color = 'black';
+  mens.style.backgroundColor = 'white';
+  womens.style.color = 'black';
+  womens.style.backgroundColor = 'white';
+  jewellery.style.color = 'black';
+  jewellery.style.backgroundColor = 'white';
+  electronics.style.color = 'black';
+  electronics.style.backgroundColor = 'white';
   showContent(arr);
 })
 
 // Men's filter
 mens.addEventListener('click', () => {
   mensArr = itemsArr.filter(element => {
-    if(element.category=="men's clothing"){
+    if (element.category == "men's clothing") {
       return element;
     }
   })
 
   // Now Show Men's Content
-  all.style.backgroundColor='black';
-  all.style.color='white';
-  mens.style.color='black';
-  mens.style.backgroundColor='white';
-  womens.style.color='black';
-  womens.style.backgroundColor='white';
-  jewellery.style.color='black';
-  jewellery.style.backgroundColor='white';
-  electronics.style.color='black';
-  electronics.style.backgroundColor='white';
+  all.style.backgroundColor = 'black';
+  all.style.color = 'white';
+  mens.style.color = 'black';
+  mens.style.backgroundColor = 'white';
+  womens.style.color = 'black';
+  womens.style.backgroundColor = 'white';
+  jewellery.style.color = 'black';
+  jewellery.style.backgroundColor = 'white';
+  electronics.style.color = 'black';
+  electronics.style.backgroundColor = 'white';
   showContent(mensArr);
 })
 
@@ -131,89 +139,89 @@ mens.addEventListener('click', () => {
 // womens filter
 womens.addEventListener('click', () => {
   womensArr = itemsArr.filter(element => {
-    if(element.category=="women's clothing"){
+    if (element.category == "women's clothing") {
       return element;
     }
   })
 
   // Now Show Men's Content
-  all.style.backgroundColor='black';
-  all.style.color='white';
-  mens.style.color='black';
-  mens.style.backgroundColor='white';
-  womens.style.color='black';
-  womens.style.backgroundColor='white';
-  jewellery.style.color='black';
-  jewellery.style.backgroundColor='white';
-  electronics.style.color='black';
-  electronics.style.backgroundColor='white';
+  all.style.backgroundColor = 'black';
+  all.style.color = 'white';
+  mens.style.color = 'black';
+  mens.style.backgroundColor = 'white';
+  womens.style.color = 'black';
+  womens.style.backgroundColor = 'white';
+  jewellery.style.color = 'black';
+  jewellery.style.backgroundColor = 'white';
+  electronics.style.color = 'black';
+  electronics.style.backgroundColor = 'white';
   showContent(womensArr);
 })
 
 // jewellery filter
-jewellery.addEventListener('click', ()=> {
+jewellery.addEventListener('click', () => {
   jewelleryArr = itemsArr.filter(element => {
-    if(element.category=="jewelery"){
+    if (element.category == "jewelery") {
       return element;
     }
   })
 
   // Now Show Men's Content
-  all.style.backgroundColor='black';
-  all.style.color='white';
-  mens.style.color='black';
-  mens.style.backgroundColor='white';
-  womens.style.color='black';
-  womens.style.backgroundColor='white';
-  jewellery.style.color='black';
-  jewellery.style.backgroundColor='white';
-  electronics.style.color='black';
-  electronics.style.backgroundColor='white';
+  all.style.backgroundColor = 'black';
+  all.style.color = 'white';
+  mens.style.color = 'black';
+  mens.style.backgroundColor = 'white';
+  womens.style.color = 'black';
+  womens.style.backgroundColor = 'white';
+  jewellery.style.color = 'black';
+  jewellery.style.backgroundColor = 'white';
+  electronics.style.color = 'black';
+  electronics.style.backgroundColor = 'white';
   showContent(jewelleryArr);
 })
 
 
 // electronics filter
-electronics.addEventListener('click',()=>{
-  electronicsArr = itemsArr.filter(element =>{
-    if(element.category=="electronics"){
+electronics.addEventListener('click', () => {
+  electronicsArr = itemsArr.filter(element => {
+    if (element.category == "electronics") {
       return element;
     }
   })
 
   // Now Show Men's Content
-  all.style.backgroundColor='black';
-  all.style.color='white';
-  mens.style.color='black';
-  mens.style.backgroundColor='white';
-  womens.style.color='black';
-  womens.style.backgroundColor='white';
-  jewellery.style.color='black';
-  jewellery.style.backgroundColor='white';
-  electronics.style.color='black';
-  electronics.style.backgroundColor='white';
+  all.style.backgroundColor = 'black';
+  all.style.color = 'white';
+  mens.style.color = 'black';
+  mens.style.backgroundColor = 'white';
+  womens.style.color = 'black';
+  womens.style.backgroundColor = 'white';
+  jewellery.style.color = 'black';
+  jewellery.style.backgroundColor = 'white';
+  electronics.style.color = 'black';
+  electronics.style.backgroundColor = 'white';
   showContent(electronicsArr);
 })
 
 
 // range filter
-range.addEventListener('click', ()=> {
+range.addEventListener('click', () => {
   console.log(range.value);
 
   // If range is 0 then show all itmes
-  if(range.value==0){
+  if (range.value == 0) {
     showContent(itemsArr);
     return;
   }
 
-  rangeArr = itemsArr.filter(element =>{
-    if(Math.floor(element.rating.rate)==range.value){
+  rangeArr = itemsArr.filter(element => {
+    if (Math.floor(element.rating.rate) == range.value) {
       return element;
     }
   })
 
   if (rangeArr.length == 0) {
-    itemsCon.innerHTML=`
+    itemsCon.innerHTML = `
     <h4 style='color:red; font-size: 20px;'>No Items Found! Please Modify Your Search</h4>
     `
     return;
@@ -248,8 +256,8 @@ function checkBoxFilter() {
   });
 
 
-  arr = itemsArr.filter(element =>{
-    if(filteredProducts.includes(element)){
+  arr = itemsArr.filter(element => {
+    if (filteredProducts.includes(element)) {
       return element;
     }
   })

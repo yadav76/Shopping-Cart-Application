@@ -2,11 +2,12 @@ var shop = document.getElementById("shop");
 var cart = document.getElementById("cart");
 var profile = document.getElementById("profile");
 var home = document.getElementById("home");
+var login = document.getElementById("login");
 
 if (!localStorage.getItem("currUser")) {
-    shop.href="javascript: void(0)";
-    cart.href="javascript: void(0)";
-    profile.href="javascript: void(0)";
+    shop.href = "javascript: void(0)";
+    cart.href = "javascript: void(0)";
+    profile.href = "javascript: void(0)";
 }
 
 
@@ -28,13 +29,13 @@ form.addEventListener('submit', (event) => {
 
     // console.log(firstName, lastName, email, password, confirmPassword);
 
-    if (!(firstName || lastName || email  || password || confirmPassword)) {
+    if (!(firstName || lastName || email || password || confirmPassword)) {
         error.style.display = "inline";
         error.innerText = "Error: All Fields are Mandatory.";
 
         setTimeout(() => {
             error.style.display = "none";
-        },2000);
+        }, 2000);
         return;
     }
 
@@ -45,7 +46,7 @@ form.addEventListener('submit', (event) => {
 
         setTimeout(() => {
             error.style.display = "none";
-        },2000);
+        }, 2000);
         return;
     }
 
@@ -65,7 +66,7 @@ form.addEventListener('submit', (event) => {
         Users = JSON.parse(localStorage.getItem("Users"));
 
         Users.forEach((element) => {
-            if(element.email === email) {
+            if (element.email === email) {
                 flag = true;
 
                 console.log("true");
@@ -74,7 +75,8 @@ form.addEventListener('submit', (event) => {
 
                 setTimeout(() => {
                     error.style.display = "none";
-                },2000);
+                    location.href = '../login/index.html';
+                }, 1000);
                 return;
             }
         })
@@ -86,7 +88,7 @@ form.addEventListener('submit', (event) => {
     Users.push(user);
     console.log(Users);
 
-    localStorage.setItem('Users',JSON.stringify(Users));
+    localStorage.setItem('Users', JSON.stringify(Users));
 
     error.innerText = "User Added Successfully";
     error.style.display = "inline";
@@ -95,7 +97,7 @@ form.addEventListener('submit', (event) => {
         error.style.display = "none";
         location.href = '../login/index.html';
         form.reset();
-    },2000);
+    }, 2000);
     return;
 
 

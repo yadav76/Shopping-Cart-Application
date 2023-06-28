@@ -4,9 +4,9 @@ var profile = document.getElementById("profile");
 var home = document.getElementById("home");
 
 if (!localStorage.getItem("currUser")) {
-    shop.href="javascript: void(0)";
-    cart.href="javascript: void(0)";
-    profile.href="javascript: void(0)";
+    shop.href = "javascript: void(0)";
+    cart.href = "javascript: void(0)";
+    profile.href = "javascript: void(0)";
 }
 
 
@@ -68,11 +68,11 @@ form.addEventListener('submit', (event) => {
 
         error.style.display = "inline";
         error.innerText = "Error: All Fields are Mandatory!";
-        error.style.color= "red";
+        error.style.color = "red";
 
         setTimeout(() => {
             error.style.display = "none";
-        },2000);
+        }, 2000);
         return;
     }
 
@@ -89,7 +89,7 @@ form.addEventListener('submit', (event) => {
                 currUser = user;
                 currUser.token = generateToken();
                 flag = true;
-                localStorage.setItem("currUser",JSON.stringify(currUser));
+                localStorage.setItem("currUser", JSON.stringify(currUser));
             }
         })
     }
@@ -98,33 +98,33 @@ form.addEventListener('submit', (event) => {
     if (flag == true && currUser.password != password) {
         error.style.display = "inline";
         error.innerText = "Error: Password Incorrect";
-        error.style.color= "red";
+        error.style.color = "red";
 
         setTimeout(() => {
             error.style.display = "none";
-        },2000);
+        }, 2000);
         return;
     }
 
     if (flag == false) {
         error.style.display = "inline";
         error.innerText = "Error: User Does Not Exist!";
-        error.style.color= "red";
+        error.style.color = "red";
 
         setTimeout(() => {
             error.style.display = "none";
-        },2000);
+        }, 2000);
         return;
     }
 
     // Now Login is Successfull go to Shop
     error.style.display = "inline";
     error.innerText = "Login Successfull!";
-    error.style.color= "green";
+    error.style.color = "green";
 
     setTimeout(() => {
         error.style.display = "none";
-    },2000);
+    }, 2000);
 
     location.href = "../Shop/index.html";
     form.reset();
@@ -136,10 +136,15 @@ function generateToken() {
     var token = "";
     var str = "abcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*";
 
-    for (let i=0; i<16; i++) {
-        token += str.charAt(Math.random()*44);
+    for (let i = 0; i < 16; i++) {
+        token += str.charAt(Math.random() * 44);
     }
 
     // console.log(token);
     return token;
+}
+
+// To Logout
+function logoutUser() {
+    localStorage.removeItem(currUser);
 }

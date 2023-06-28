@@ -5,13 +5,23 @@ var form1 = document.getElementById("nameForm");
 var form2 = document.getElementById("passwordForm");
 var currUser = {};
 
+
+// If currUser exists in localStorage then do not go to login or signup page
+var login = document.getElementById("login");
+var signup = document.getElementById("signup");
+
+if (localStorage.getItem("currUser")) {
+    login.href = "javascript: void(0)";
+    signup.href = "javascript: void(0)";
+}
+
 if (localStorage.getItem("currUser")) {
     currUser = JSON.parse(localStorage.getItem("currUser"));
     console.log(currUser);
-    
+
     document.getElementById("firstName").value = currUser.firstName;
     document.getElementById("lastName").value = currUser.lastName;
-}else {
+} else {
     location.href = "../login/index.html";
 }
 
@@ -38,7 +48,7 @@ form1.addEventListener("submit", (event) => {
 
         setTimeout(() => {
             editMessage.style.display = "none";
-        },2000);
+        }, 2000);
         return;
     }
 
@@ -54,12 +64,12 @@ form1.addEventListener("submit", (event) => {
     var tempUser = {};
     var ind = 0;
 
-    users.forEach((element,count) => {
+    users.forEach((element, count) => {
         if (element.email == currEmail) {
 
             tempUser = element;
             ind = count;
-            
+
         }
         count++;
     })
@@ -69,15 +79,15 @@ form1.addEventListener("submit", (event) => {
 
     users[ind] = tempUser;
 
-    localStorage.setItem("Users",JSON.stringify(users));
+    localStorage.setItem("Users", JSON.stringify(users));
 
     editMessage.style.display = "inline";
     editMessage.innerText = "Profile Updated Successfully!";
-    editMessage.style.color= "green";
+    editMessage.style.color = "green";
 
     setTimeout(() => {
         editMessage.style.display = "none";
-    },2000);
+    }, 2000);
 
     form1.reset();
     return;
@@ -98,7 +108,7 @@ form2.addEventListener("submit", (event) => {
 
         setTimeout(() => {
             passwordMessage.style.display = "none";
-        },2000);
+        }, 2000);
         return;
     }
 
@@ -108,7 +118,7 @@ form2.addEventListener("submit", (event) => {
 
         setTimeout(() => {
             passwordMessage.style.display = "none";
-        },2000);
+        }, 2000);
         return;
     }
 
@@ -120,21 +130,21 @@ form2.addEventListener("submit", (event) => {
 
         setTimeout(() => {
             passwordMessage.style.display = "none";
-        },2000);
+        }, 2000);
         return;
     }
 
     var users = JSON.parse(localStorage.getItem("Users"));
-    var currEmail =currUser.email;
+    var currEmail = currUser.email;
     var tempUser = {};
     var ind = 0;
 
-    users.forEach((element,count) => {
+    users.forEach((element, count) => {
         if (element.email == currEmail) {
 
             tempUser = element;
             ind = count;
-            
+
         }
         count++;
     })
@@ -142,7 +152,7 @@ form2.addEventListener("submit", (event) => {
     tempUser.password = password;
 
     users[ind] = tempUser;
-    localStorage.setItem("Users",JSON.stringify(users));
+    localStorage.setItem("Users", JSON.stringify(users));
 
 
     // I also Have to update the password in currUser Database
@@ -151,11 +161,11 @@ form2.addEventListener("submit", (event) => {
 
     passwordMessage.style.display = "inline";
     passwordMessage.innerText = "Password Updated Successfully!";
-    passwordMessage.style.color= "green";
+    passwordMessage.style.color = "green";
 
     setTimeout(() => {
         passwordMessage.style.display = "none";
-    },2000);
+    }, 2000);
 
     form2.reset();
     return;
