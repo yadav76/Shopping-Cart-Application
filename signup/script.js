@@ -32,6 +32,7 @@ form.addEventListener('submit', (event) => {
     if (!(firstName || lastName || email || password || confirmPassword)) {
         error.style.display = "inline";
         error.innerText = "Error: All Fields are Mandatory.";
+        error.style.color = "red";
 
         setTimeout(() => {
             error.style.display = "none";
@@ -43,6 +44,7 @@ form.addEventListener('submit', (event) => {
     if (password != confirmPassword) {
         error.innerText = "Error: Passwrod and Confirm Password Not Matched";
         error.style.display = "inline";
+        error.style.color = "red";
 
         setTimeout(() => {
             error.style.display = "none";
@@ -72,6 +74,7 @@ form.addEventListener('submit', (event) => {
                 console.log("true");
                 error.innerText = "Error: User Already Exist";
                 error.style.display = "inline";
+                error.style.color = "green";
 
                 setTimeout(() => {
                     error.style.display = "none";
@@ -92,6 +95,7 @@ form.addEventListener('submit', (event) => {
 
     error.innerText = "User Added Successfully";
     error.style.display = "inline";
+    error.style.color = "green";
 
     setTimeout(() => {
         error.style.display = "none";

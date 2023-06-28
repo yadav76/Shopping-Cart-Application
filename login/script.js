@@ -126,7 +126,7 @@ form.addEventListener('submit', (event) => {
         error.style.display = "none";
     }, 2000);
 
-    location.href = "../Shop/index.html";
+    location.href = "../shop/index.html";
     form.reset();
     return;
 })
